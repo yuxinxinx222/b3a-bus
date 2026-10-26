@@ -3,145 +3,231 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08040a">
 <title>B3A · Fu Tai ⇄ Shenzhen Bay Port</title>
 <style>
   :root{
-    --bg:#0b1020;
-    --card:#161d33;
-    --card2:#1d2743;
-    --line:#2b3757;
-    --text:#eef2ff;
-    --muted:#93a0c4;
-    --accent:#ffcc00;
-    --accent2:#ff5c39;
-    --good:#35d07f;
-    --ret:#4cc9f0;
+    --bg:#08040a;
+    --panel:rgba(30,10,30,.72);
+    --line:rgba(255,45,149,.26);
+    --text:#ffe9f7;
+    --muted:#c98ab4;
+    --pink:#ff2d95;
+    --pink-2:#ff7ac6;
+    --violet:#a855f7;
+    --dim:#8a5f7d;
+    --mono:ui-monospace,"Cascadia Mono","SF Mono",Consolas,"Liberation Mono",monospace;
   }
   *{box-sizing:border-box}
   body{
     margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",
-                "PingFang TC","Microsoft JhengHei",Arial,sans-serif;
+    min-height:100vh;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
+                "PingFang SC","Microsoft YaHei",Arial,sans-serif;
     color:var(--text);
     background:
-      radial-gradient(1100px 600px at 12% -10%, #22305c 0%, transparent 60%),
-      radial-gradient(900px 500px at 100% 0%, #3a2350 0%, transparent 55%),
+      radial-gradient(1200px 700px at 15% -10%, rgba(255,45,149,.20), transparent 60%),
+      radial-gradient(900px 600px at 100% 0%, rgba(168,85,247,.18), transparent 55%),
+      radial-gradient(800px 520px at 50% 115%, rgba(255,45,149,.12), transparent 60%),
       var(--bg);
-    min-height:100vh;
     display:flex;
     align-items:flex-start;
     justify-content:center;
-    padding:26px 20px 34px;
+    padding:26px 18px 36px;
   }
-  .wrap{width:100%;max-width:940px}
+  /* 科技网格 */
+  body::before{
+    content:"";
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:
+      linear-gradient(rgba(255,45,149,.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,45,149,.055) 1px, transparent 1px);
+    background-size:46px 46px;
+    -webkit-mask-image:radial-gradient(circle at 50% 28%, #000 0%, transparent 74%);
+    mask-image:radial-gradient(circle at 50% 28%, #000 0%, transparent 74%);
+  }
 
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
-    gap:20px;
-  }
+  .wrap{width:100%;max-width:940px;position:relative;z-index:1}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:20px}
 
   .card{
-    background:linear-gradient(180deg,var(--card) 0%,var(--card2) 100%);
-    border:1px solid var(--line);
-    border-radius:22px;
-    padding:22px 22px 16px;
-    box-shadow:0 22px 55px rgba(0,0,0,.42);
     position:relative;
+    background:linear-gradient(158deg, rgba(46,16,42,.88) 0%, rgba(15,6,18,.94) 100%);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:22px 22px 16px;
+    box-shadow:
+      0 0 0 1px rgba(255,45,149,.05),
+      0 22px 60px rgba(0,0,0,.6),
+      inset 0 1px 0 rgba(255,255,255,.05);
+    backdrop-filter:blur(9px);
+    -webkit-backdrop-filter:blur(9px);
     overflow:hidden;
   }
+  /* 顶部霓虹条 */
   .card::before{
     content:"";
-    position:absolute;inset:0 0 auto 0;height:4px;
-    background:linear-gradient(90deg,var(--tint),transparent 70%);
+    position:absolute; inset:0 0 auto 0; height:2px;
+    background:linear-gradient(90deg, transparent, var(--pink), var(--violet), transparent);
+    box-shadow:0 0 14px rgba(255,45,149,.8);
+    opacity:.9;
+  }
+  /* 角落装饰 */
+  .card::after{
+    content:"";
+    position:absolute; right:-1px; bottom:-1px; width:26px; height:26px;
+    border-right:2px solid rgba(255,45,149,.75);
+    border-bottom:2px solid rgba(255,45,149,.75);
+    border-bottom-right-radius:18px;
+    pointer-events:none;
+  }
+  .card .corner{
+    position:absolute; left:-1px; top:-1px; width:26px; height:26px;
+    border-left:2px solid rgba(255,45,149,.75);
+    border-top:2px solid rgba(255,45,149,.75);
+    border-top-left-radius:18px;
+    pointer-events:none;
   }
 
   .top{display:flex;align-items:flex-start;gap:12px}
   .route{
-    background:var(--accent);
-    color:#1a1400;font-weight:800;font-size:22px;line-height:1;
-    padding:7px 12px;border-radius:11px;flex:none;letter-spacing:.4px;
+    flex:none;
+    font-family:var(--mono);
+    font-size:21px; font-weight:700; letter-spacing:1px; line-height:1;
+    padding:8px 12px; border-radius:10px;
+    color:#12030c;
+    background:linear-gradient(135deg,var(--pink-2),var(--pink) 55%,var(--violet));
+    box-shadow:0 0 18px rgba(255,45,149,.55), inset 0 1px 0 rgba(255,255,255,.35);
   }
   .dest{min-width:0;flex:1}
   .kind{
-    font-size:10.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;
-    color:var(--tint);margin-bottom:2px;
+    font-family:var(--mono);
+    font-size:10px; font-weight:700; letter-spacing:2.4px; text-transform:uppercase;
+    color:var(--pink-2); margin-bottom:4px;
+    text-shadow:0 0 12px rgba(255,45,149,.5);
   }
   .dest .leg{display:flex;gap:8px;align-items:baseline;font-size:14px;color:var(--muted);line-height:1.35}
   .dest .leg .lbl{
-    flex:none;width:32px;font-size:9px;font-weight:800;letter-spacing:1px;
-    text-transform:uppercase;color:#6b79a0;
+    flex:none;width:32px;font-family:var(--mono);font-size:9px;font-weight:700;
+    letter-spacing:1px;text-transform:uppercase;color:var(--dim);
   }
   .dest .leg.to{font-size:16px;font-weight:700;color:var(--text)}
 
-  .hero{text-align:center;padding:18px 0 6px}
+  .hero{text-align:center;padding:16px 0 6px}
   .hero .label{
-    font-size:11px;letter-spacing:2.2px;text-transform:uppercase;
+    font-family:var(--mono);
+    font-size:10.5px;letter-spacing:3px;text-transform:uppercase;
     color:var(--muted);font-weight:700;
   }
   .hero .big{
-    font-size:clamp(60px,13vw,96px);font-weight:800;line-height:1;margin-top:4px;
+    font-family:var(--mono);
+    font-size:clamp(62px,13vw,98px);
+    font-weight:800;line-height:1.02;margin-top:6px;
+    letter-spacing:-2px;
     font-variant-numeric:tabular-nums;
-    text-shadow:0 0 38px color-mix(in srgb, var(--tint) 30%, transparent);
+    background:linear-gradient(180deg,#ffffff 0%,#ffb3dd 42%,#ff2d95 100%);
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;-webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 0 24px rgba(255,45,149,.55));
+    animation:glowPulse 3.2s ease-in-out infinite;
   }
-  .hero .big.due{font-size:clamp(42px,9vw,62px);color:var(--good);text-shadow:0 0 38px rgba(53,208,127,.3)}
-  .hero .unit{font-size:16px;color:var(--muted);font-weight:600;margin-top:3px}
-  .hero .at{font-size:12.5px;color:var(--muted);margin-top:8px}
+  @keyframes glowPulse{
+    0%,100%{filter:drop-shadow(0 0 20px rgba(255,45,149,.45))}
+    50%{filter:drop-shadow(0 0 36px rgba(255,45,149,.8))}
+  }
+  .hero .big.due{
+    font-size:clamp(42px,9vw,60px);
+    letter-spacing:0;
+    background:none;color:#ffffff;-webkit-text-fill-color:#ffffff;
+    text-shadow:0 0 32px rgba(255,45,149,.85);
+    animation:none;
+  }
+  .hero .unit{
+    font-family:var(--mono);
+    font-size:15px;color:var(--muted);font-weight:600;margin-top:4px;
+    letter-spacing:1px;
+  }
+  .hero .at{font-size:12.5px;color:var(--dim);margin-top:8px;font-family:var(--mono);letter-spacing:.5px}
 
   .pill{
-    display:inline-block;font-size:10.5px;font-weight:700;
-    padding:2px 8px;border-radius:999px;margin-left:7px;
-    background:rgba(255,92,57,.18);color:#ff9b85;
-    border:1px solid rgba(255,92,57,.35);
+    display:inline-block;font-family:var(--mono);
+    font-size:10px;font-weight:700;letter-spacing:.5px;
+    padding:2px 8px;border-radius:6px;margin-left:7px;
+    background:rgba(255,45,149,.14);color:var(--pink-2);
+    border:1px solid rgba(255,45,149,.45);
     vertical-align:middle;white-space:nowrap;
   }
 
-  .list{margin-top:12px;border-top:1px solid var(--line);padding-top:6px}
+  .list{margin-top:12px;border-top:1px solid rgba(255,45,149,.16);padding-top:4px}
   .row{
     display:flex;align-items:baseline;gap:9px;
-    padding:10px 3px;border-bottom:1px solid rgba(43,55,87,.55);
+    padding:10px 3px;border-bottom:1px solid rgba(255,45,149,.10);
   }
   .row:last-child{border-bottom:0}
-  .row .n{width:20px;color:var(--muted);font-size:12.5px;font-weight:700;flex:none}
-  .row .min{font-size:20px;font-weight:750;font-variant-numeric:tabular-nums;min-width:80px}
-  .row .min small{font-size:11.5px;color:var(--muted);font-weight:600;margin-left:3px}
-  .row .clock{margin-left:auto;color:var(--muted);font-size:13.5px;font-variant-numeric:tabular-nums}
-  .empty{color:var(--muted);font-size:13.5px;padding:12px 3px}
+  .row .n{
+    width:20px;flex:none;font-family:var(--mono);
+    color:var(--dim);font-size:12px;font-weight:700;
+  }
+  .row .min{
+    font-family:var(--mono);font-size:20px;font-weight:700;
+    font-variant-numeric:tabular-nums;min-width:80px;color:var(--text);
+  }
+  .row .min small{font-size:11px;color:var(--muted);font-weight:600;margin-left:3px}
+  .row .clock{
+    margin-left:auto;font-family:var(--mono);
+    color:var(--dim);font-size:13px;font-variant-numeric:tabular-nums;
+  }
+  .empty{color:var(--muted);font-size:13px;padding:12px 3px;font-family:var(--mono)}
 
   .note{
-    margin-top:10px;font-size:11.5px;line-height:1.45;color:#7c8ab0;
-    border-top:1px dashed rgba(43,55,87,.8);padding-top:9px;
+    margin-top:10px;font-size:11.5px;line-height:1.5;color:var(--dim);
+    border-top:1px dashed rgba(255,45,149,.2);padding-top:9px;
   }
 
   .err-box{
-    display:none;margin-top:10px;padding:11px 12px;border-radius:11px;
-    background:rgba(255,92,57,.12);border:1px solid rgba(255,92,57,.35);
-    color:#ffb3a3;font-size:12.5px;line-height:1.4;
+    display:none;margin-top:10px;padding:11px 12px;border-radius:10px;
+    background:rgba(255,45,90,.10);border:1px solid rgba(255,45,90,.4);
+    color:#ff9fb8;font-size:12.5px;line-height:1.45;
   }
 
   .foot{
-    display:flex;align-items:center;gap:10px;
-    margin-top:20px;font-size:12px;color:var(--muted);flex-wrap:wrap;
-    justify-content:center;
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;
+    margin-top:20px;font-family:var(--mono);font-size:12px;color:var(--muted);
   }
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--good);flex:none;
-       box-shadow:0 0 0 0 rgba(53,208,127,.6);animation:pulse 2s infinite}
-  .dot.err{background:var(--accent2);animation:none}
+  .dot{
+    width:8px;height:8px;border-radius:50%;flex:none;
+    background:var(--pink);
+    box-shadow:0 0 0 0 rgba(255,45,149,.65);
+    animation:pulse 2s infinite;
+  }
+  .dot.err{background:#ff3b5c;animation:none;box-shadow:0 0 12px rgba(255,59,92,.9)}
   @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(53,208,127,.55)}
-    70%{box-shadow:0 0 0 9px rgba(53,208,127,0)}
-    100%{box-shadow:0 0 0 0 rgba(53,208,127,0)}
+    0%{box-shadow:0 0 0 0 rgba(255,45,149,.6)}
+    70%{box-shadow:0 0 0 10px rgba(255,45,149,0)}
+    100%{box-shadow:0 0 0 0 rgba(255,45,149,0)}
   }
-  .sp{width:14px}
+  .sp{width:12px}
   button{
     font:inherit;font-size:12px;font-weight:700;cursor:pointer;
-    color:var(--text);background:rgba(255,255,255,.07);
-    border:1px solid var(--line);border-radius:9px;padding:6px 11px;
+    color:var(--pink-2);background:rgba(255,45,149,.08);
+    border:1px solid rgba(255,45,149,.45);border-radius:8px;
+    padding:6px 12px;letter-spacing:.5px;
+    transition:background .18s, box-shadow .18s, color .18s;
   }
-  button:hover{background:rgba(255,255,255,.13)}
-  button:disabled{opacity:.45;cursor:default}
+  button:hover{
+    background:rgba(255,45,149,.20);color:#fff;
+    box-shadow:0 0 18px rgba(255,45,149,.55);
+  }
+  button:disabled{opacity:.4;cursor:default;box-shadow:none}
 
-  .src{margin-top:14px;text-align:center;font-size:11px;color:#6b79a0;line-height:1.5}
+  .src{
+    margin-top:14px;text-align:center;font-family:var(--mono);
+    font-size:10.5px;line-height:1.6;color:#7a5270;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero .big,.dot{animation:none}
+  }
 </style>
 </head>
 <body>
@@ -150,16 +236,16 @@
 
   <div class="foot">
     <span class="dot" id="dot"></span>
-    <span id="status">Connecting…</span>
+    <span id="status">CONNECTING…</span>
     <span class="sp"></span>
     <span id="nextrefresh"></span>
-    <button id="refresh" type="button">Refresh</button>
+    <button id="refresh" type="button">REFRESH</button>
   </div>
 
   <div class="src">
-    Citybus B3A · open data: rt.data.gov.hk (DATA.GOV.HK) · auto-refresh every 30s<br>
-    outbound: Fu Tai Estate 003261 → Shenzhen Bay Port &nbsp;|&nbsp;
-    return: Shenzhen Bay Port 003208 → Shan King Estate (via Fu Tai Shopping Centre 003262)
+    CITYBUS B3A · OPEN DATA: RT.DATA.GOV.HK (DATA.GOV.HK) · AUTO-REFRESH 60s<br>
+    OUT 003261 FU TAI ESTATE → SHENZHEN BAY PORT &nbsp;|&nbsp;
+    RET 003208 SHENZHEN BAY PORT → SHAN KING ESTATE (VIA 003262)
   </div>
 </div>
 
@@ -170,15 +256,14 @@
   var CO = "CTB";
   var ROUTE = "B3A";
   var API = "https://rt.data.gov.hk/v2/transport/citybus/eta/" + CO + "/";
-  var REFRESH_MS = 30000;
+  var REFRESH_MS = 60000;
 
   var LEGS = [
     {
       key: "out",
       kind: "去程 · Outbound",
       from: "Fu Tai Estate · 富泰邨",
-      to: "Shenzhen Bay Port · 深圳灣口岸",
-      tint: "#ffcc00",
+      to: "Shenzhen Bay Port · 深圳湾口岸",
       stop: "003261",
       dir: "O",
       dest: "Shenzhen Bay Port",
@@ -187,29 +272,26 @@
     {
       key: "ret",
       kind: "回程 · Return",
-      from: "Shenzhen Bay Port · 深圳灣口岸",
+      from: "Shenzhen Bay Port · 深圳湾口岸",
       to: "Fu Tai · 富泰",
-      tint: "#4cc9f0",
       stop: "003208",
       dir: "I",
       dest: "Shan King Estate",
       note: "Return direction terminates at Shan King Estate (山景邨). Nearest stop " +
-            "to Fu Tai Estate is Fu Tai Shopping Centre · 富泰商場 (003262)."
+            "to Fu Tai Estate is Fu Tai Shopping Centre · 富泰商场 (003262)."
     }
   ];
 
   var $ = function (id) { return document.getElementById(id); };
-  var busy = false;
-  var lastUpdate = null;
-  var nextFetchAt = 0;
+  var busy = false, lastUpdate = null, nextFetchAt = 0;
 
-  /* ---------- build cards once ---------- */
+  /* ---------- build cards ---------- */
   var app = $("app");
   LEGS.forEach(function (leg) {
     var sec = document.createElement("section");
     sec.className = "card";
-    sec.style.setProperty("--tint", leg.tint);
     sec.innerHTML =
+      '<span class="corner"></span>' +
       '<div class="top">' +
         '<div class="route">' + ROUTE + '</div>' +
         '<div class="dest">' +
@@ -263,8 +345,7 @@
     $("refresh").disabled = true;
 
     var jobs = LEGS.map(function (leg) {
-      var url = API + leg.stop + "/" + ROUTE;
-      return fetch(url, { cache: "no-store" })
+      return fetch(API + leg.stop + "/" + ROUTE, { cache: "no-store" })
         .then(function (r) {
           if (!r.ok) throw new Error("HTTP " + r.status);
           return r.json();
@@ -279,26 +360,22 @@
             })
             .filter(function (e) { return !isNaN(e.ms); })
             .sort(function (a, b) { return a.ms - b.ms; });
-          leg.ui.err.style.display = "none";
           leg.ok = true;
+          leg.ui.err.style.display = "none";
         })
         .catch(function (err) {
           leg.ok = false;
-          leg.err = err.message;
           leg.ui.err.style.display = "block";
           leg.ui.err.textContent =
-            "Could not reach Citybus open data (" + err.message +
-            "). Showing the last known times.";
+            "SIGNAL LOST — could not reach Citybus open data (" + err.message +
+            "). Showing last known times.";
         });
     });
 
     Promise.all(jobs).then(function () {
       lastUpdate = new Date();
       nextFetchAt = Date.now() + REFRESH_MS;
-
-      var allOk = LEGS.every(function (l) { return l.ok; });
-      $("dot").classList.toggle("err", !allOk);
-
+      $("dot").classList.toggle("err", !LEGS.every(function (l) { return l.ok; }));
       tick();
       busy = false;
       $("refresh").disabled = false;
@@ -312,9 +389,9 @@
     if (!etas.length) {
       ui.big.textContent = "–";
       ui.big.classList.remove("due");
-      ui.unit.innerHTML = "no buses scheduled";
+      ui.unit.textContent = "no buses scheduled";
       ui.at.textContent = "";
-      ui.list.innerHTML = '<div class="empty">No upcoming buses reported for this stop.</div>';
+      ui.list.innerHTML = '<div class="empty">NO UPCOMING BUSES AT THIS STOP</div>';
       return;
     }
 
@@ -322,10 +399,10 @@
     var m = minsUntil(first.ms);
 
     if (m <= 0.5) {
-      ui.big.textContent = "Due";
+      ui.big.textContent = "DUE";
       ui.big.classList.add("due");
       ui.unit.innerHTML = badge(first.rmk);
-      ui.at.textContent = "arriving now";
+      ui.at.textContent = "ARRIVING NOW";
     } else {
       ui.big.classList.remove("due");
       ui.big.textContent = Math.floor(m);
@@ -336,7 +413,7 @@
     var html = "";
     etas.slice(0, 4).forEach(function (e, i) {
       var mm = minsUntil(e.ms);
-      var label = mm <= 0.5 ? "Due" : Math.floor(mm) + "<small>min</small>";
+      var label = mm <= 0.5 ? "DUE" : Math.floor(mm) + "<small>min</small>";
       html += '<div class="row">' +
                 '<span class="n">' + (i + 1) + "</span>" +
                 '<span class="min">' + label + badge(e.rmk) + "</span>" +
@@ -352,14 +429,14 @@
     LEGS.forEach(renderLeg);
 
     $("status").textContent =
-      ($("dot").classList.contains("err") ? "Partial data" : "Live") +
-      " · updated " +
+      ($("dot").classList.contains("err") ? "PARTIAL DATA" : "LIVE") +
+      " · UPDATED " +
       String(lastUpdate.getHours()).padStart(2, "0") + ":" +
       String(lastUpdate.getMinutes()).padStart(2, "0") + ":" +
       String(lastUpdate.getSeconds()).padStart(2, "0");
 
     var left = Math.max(0, Math.ceil((nextFetchAt - Date.now()) / 1000));
-    $("nextrefresh").textContent = "next in " + left + "s";
+    $("nextrefresh").textContent = "NEXT IN " + left + "s";
   }
 
   $("refresh").addEventListener("click", fetchAll);
