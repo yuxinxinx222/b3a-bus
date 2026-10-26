@@ -3,19 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#fff7fa">
+<meta name="theme-color" content="#fff7fb">
 <title>B3A · Fu Tai ⇄ Shenzhen Bay Port</title>
 <style>
   :root{
-    --bg:#fff7fa;
-    --panel:#ffffff;
-    --text:#3b2430;
-    --muted:#9b7a8c;
-    --pink:#e75a8a;
-    --pink-deep:#d34a7c;
-    --pink-soft:#ffd9e6;
-    --line:#ffe1ec;
-    --dim:#b79aa8;
+    --ink:#33232c;
+    --muted:#8f7385;
+    --dim:#b9a3b0;
+    --rose:#d65b8a;
+    --rose-deep:#b83f6e;
+    --lilac:#a06bd0;
+    --card:rgba(255,255,255,.78);
     --mono:ui-monospace,"Cascadia Mono","SF Mono",Consolas,"Liberation Mono",monospace;
   }
   *{box-sizing:border-box}
@@ -24,47 +22,97 @@
     min-height:100vh;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
                 "PingFang SC","Microsoft YaHei",Arial,sans-serif;
-    color:var(--text);
+    color:var(--ink);
     background:
-      radial-gradient(1000px 620px at 8% -12%, #ffe4ef 0%, transparent 62%),
-      radial-gradient(900px 600px at 100% 0%, #f4e8ff 0%, transparent 58%),
-      radial-gradient(760px 480px at 50% 118%, #ffe9f2 0%, transparent 65%),
-      var(--bg);
+      radial-gradient(900px 620px at 6% -12%, #ffe1ed 0%, transparent 60%),
+      radial-gradient(880px 600px at 98% 0%, #eadcff 0%, transparent 58%),
+      radial-gradient(720px 500px at 50% 114%, #ffe7d6 0%, transparent 62%),
+      linear-gradient(180deg,#fffbfd 0%,#fff7fb 100%);
     display:flex;
     align-items:flex-start;
     justify-content:center;
-    padding:26px 18px 36px;
+    padding:30px 18px 40px;
   }
-  /* 很淡的网格，保留一点科技感 */
+  /* 极淡网格 */
   body::before{
     content:"";
-    position:fixed; inset:0; pointer-events:none; z-index:0;
+    position:fixed;inset:0;z-index:0;pointer-events:none;
     background-image:
-      linear-gradient(rgba(231,90,138,.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(231,90,138,.045) 1px, transparent 1px);
-    background-size:48px 48px;
-    -webkit-mask-image:radial-gradient(circle at 50% 30%, #000 0%, transparent 78%);
-    mask-image:radial-gradient(circle at 50% 30%, #000 0%, transparent 78%);
+      linear-gradient(rgba(214,91,138,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(214,91,138,.04) 1px, transparent 1px);
+    background-size:52px 52px;
+    -webkit-mask-image:radial-gradient(circle at 50% 26%, #000 0%, transparent 76%);
+    mask-image:radial-gradient(circle at 50% 26%, #000 0%, transparent 76%);
+  }
+  /* 缓慢漂移的柔光 */
+  body::after{
+    content:"";
+    position:fixed;inset:-18%;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(38% 38% at 28% 28%, rgba(255,171,205,.42), transparent 70%),
+      radial-gradient(34% 34% at 72% 62%, rgba(178,148,255,.32), transparent 70%),
+      radial-gradient(30% 30% at 55% 85%, rgba(255,196,164,.30), transparent 70%);
+    filter:blur(46px);
+    animation:drift 20s ease-in-out infinite alternate;
+  }
+  @keyframes drift{
+    from{transform:translate3d(-2%,-1%,0) scale(1)}
+    to{transform:translate3d(2%,2%,0) scale(1.04)}
   }
 
   .wrap{width:100%;max-width:940px;position:relative;z-index:1}
+
+  /* ---------- 顶部日期 ---------- */
+  .masthead{text-align:center;margin-bottom:22px}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:10px;font-weight:700;letter-spacing:3.4px;text-transform:uppercase;
+    background:linear-gradient(90deg,#c74a7c,#a06bd0);
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;-webkit-text-fill-color:transparent;
+    margin-bottom:10px;
+  }
+  .date-en{
+    font-size:clamp(19px,3.4vw,26px);
+    font-weight:650;
+    letter-spacing:.14em;
+    background:linear-gradient(140deg,#b83f6e 0%,#d9709f 42%,#8f63cc 100%);
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;-webkit-text-fill-color:transparent;
+    line-height:1.25;
+  }
+  .date-cn{
+    margin-top:7px;
+    font-size:13px;letter-spacing:.34em;color:var(--muted);
+  }
+  .rule{
+    width:54px;height:2px;margin:16px auto 0;border-radius:2px;
+    background:linear-gradient(90deg,transparent,#e9a3c1,#b99ad9,transparent);
+  }
+
+  /* ---------- 卡片 ---------- */
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:20px}
 
   .card{
     position:relative;
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:20px;
+    border:1px solid transparent;
+    border-radius:22px;
     padding:22px 22px 16px;
+    background:
+      linear-gradient(var(--card),var(--card)) padding-box,
+      linear-gradient(135deg,#ffd2e4 0%,#e7d6ff 48%,#ffe2cf 100%) border-box;
     box-shadow:
-      0 1px 2px rgba(180,80,120,.05),
-      0 18px 44px rgba(200,110,150,.13);
+      0 2px 4px rgba(184,63,110,.04),
+      0 22px 50px rgba(160,107,208,.13);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
     overflow:hidden;
   }
   .card::before{
     content:"";
-    position:absolute; inset:0 0 auto 0; height:3px;
-    background:linear-gradient(90deg, #ffd9e6, var(--pink) 45%, #d9c2ff);
+    position:absolute;inset:0 0 auto 0;height:3px;
+    background:linear-gradient(90deg,#ffb3ce,#d65b8a 40%,#a06bd0 78%,#ffd0b8);
+    opacity:.85;
   }
 
   .top{display:flex;align-items:flex-start;gap:12px}
@@ -72,23 +120,26 @@
     flex:none;
     font-family:var(--mono);
     font-size:21px;font-weight:700;letter-spacing:1px;line-height:1;
-    padding:8px 12px;border-radius:11px;
+    padding:9px 13px;border-radius:12px;
     color:#fff;
-    background:linear-gradient(135deg,#ff9ec4,var(--pink));
-    box-shadow:0 6px 16px rgba(231,90,138,.28), inset 0 1px 0 rgba(255,255,255,.5);
+    background:linear-gradient(135deg,#f6a6c0 0%,#d65b8a 55%,#b03e74 100%);
+    box-shadow:0 8px 20px rgba(214,91,138,.30), inset 0 1px 0 rgba(255,255,255,.55);
   }
   .dest{min-width:0;flex:1}
   .kind{
     font-family:var(--mono);
     font-size:10px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
-    color:var(--pink);margin-bottom:4px;
+    background:linear-gradient(90deg,#c74a7c,#a06bd0);
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;-webkit-text-fill-color:transparent;
+    margin-bottom:4px;
   }
   .dest .leg{display:flex;gap:8px;align-items:baseline;font-size:14px;color:var(--muted);line-height:1.35}
   .dest .leg .lbl{
     flex:none;width:32px;font-family:var(--mono);font-size:9px;font-weight:700;
     letter-spacing:1px;text-transform:uppercase;color:var(--dim);
   }
-  .dest .leg.to{font-size:16px;font-weight:700;color:var(--text)}
+  .dest .leg.to{font-size:16px;font-weight:700;color:var(--ink)}
 
   .hero{text-align:center;padding:16px 0 6px}
   .hero .label{
@@ -98,17 +149,20 @@
   }
   .hero .big{
     font-family:var(--mono);
-    font-size:clamp(62px,13vw,98px);
+    font-size:clamp(62px,13vw,100px);
     font-weight:800;line-height:1.02;margin-top:6px;
     letter-spacing:-2px;
     font-variant-numeric:tabular-nums;
-    color:var(--pink-deep);
-    text-shadow:0 8px 26px rgba(231,90,138,.18);
+    background:linear-gradient(150deg,#c74a7c 0%,#e9709b 46%,#9b6bd6 100%);
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;-webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 8px 22px rgba(184,63,110,.16));
   }
   .hero .big.due{
     font-size:clamp(42px,9vw,60px);
     letter-spacing:0;
-    color:var(--pink);
+    background:none;color:var(--rose-deep);-webkit-text-fill-color:var(--rose-deep);
+    filter:none;
   }
   .hero .unit{
     font-family:var(--mono);
@@ -121,15 +175,16 @@
     display:inline-block;font-family:var(--mono);
     font-size:10px;font-weight:700;letter-spacing:.4px;
     padding:2px 8px;border-radius:6px;margin-left:7px;
-    background:#fff0f6;color:var(--pink-deep);
-    border:1px solid var(--pink-soft);
+    background:linear-gradient(180deg,#fff3f8,#ffe8f2);
+    color:var(--rose-deep);
+    border:1px solid #ffd2e4;
     vertical-align:middle;white-space:nowrap;
   }
 
-  .list{margin-top:12px;border-top:1px solid var(--line);padding-top:4px}
+  .list{margin-top:12px;border-top:1px solid #f6e6ef;padding-top:4px}
   .row{
     display:flex;align-items:baseline;gap:9px;
-    padding:10px 3px;border-bottom:1px solid #f9edf3;
+    padding:10px 3px;border-bottom:1px solid #faf0f5;
   }
   .row:last-child{border-bottom:0}
   .row .n{
@@ -138,7 +193,7 @@
   }
   .row .min{
     font-family:var(--mono);font-size:20px;font-weight:700;
-    font-variant-numeric:tabular-nums;min-width:80px;color:var(--text);
+    font-variant-numeric:tabular-nums;min-width:80px;color:var(--ink);
   }
   .row .min small{font-size:11px;color:var(--muted);font-weight:600;margin-left:3px}
   .row .clock{
@@ -149,57 +204,68 @@
 
   .note{
     margin-top:10px;font-size:11.5px;line-height:1.5;color:var(--dim);
-    border-top:1px dashed var(--line);padding-top:9px;
+    border-top:1px dashed #f3e2ec;padding-top:9px;
   }
 
   .err-box{
-    display:none;margin-top:10px;padding:11px 12px;border-radius:10px;
-    background:#fff0f4;border:1px solid #ffc9d9;
-    color:#c0405f;font-size:12.5px;line-height:1.45;
+    display:none;margin-top:10px;padding:11px 12px;border-radius:11px;
+    background:linear-gradient(180deg,#fff1f5,#ffe9f1);
+    border:1px solid #ffc9da;
+    color:#b83f5e;font-size:12.5px;line-height:1.45;
   }
 
   .foot{
     display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;
-    margin-top:20px;font-family:var(--mono);font-size:12px;color:var(--muted);
+    margin-top:22px;font-family:var(--mono);font-size:12px;color:var(--muted);
   }
   .dot{
     width:8px;height:8px;border-radius:50%;flex:none;
-    background:var(--pink);
-    box-shadow:0 0 0 0 rgba(231,90,138,.45);
+    background:linear-gradient(135deg,#f6a6c0,#d65b8a);
+    box-shadow:0 0 0 0 rgba(214,91,138,.42);
     animation:pulse 2.2s infinite;
   }
   .dot.err{background:#e0455f;animation:none}
   @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(231,90,138,.45)}
-    70%{box-shadow:0 0 0 9px rgba(231,90,138,0)}
-    100%{box-shadow:0 0 0 0 rgba(231,90,138,0)}
+    0%{box-shadow:0 0 0 0 rgba(214,91,138,.42)}
+    70%{box-shadow:0 0 0 9px rgba(214,91,138,0)}
+    100%{box-shadow:0 0 0 0 rgba(214,91,138,0)}
   }
   .sp{width:12px}
   button{
     font:inherit;font-size:12px;font-weight:700;cursor:pointer;
-    color:var(--pink-deep);background:#fff;
-    border:1px solid var(--pink-soft);border-radius:9px;
+    color:var(--rose-deep);
+    background:linear-gradient(180deg,#ffffff,#fff6fa);
+    border:1px solid #ffd2e4;border-radius:9px;
     padding:6px 12px;letter-spacing:.4px;
-    transition:background .18s, box-shadow .18s, border-color .18s;
+    transition:box-shadow .18s, border-color .18s, transform .18s;
   }
   button:hover{
-    background:#fff4f8;border-color:var(--pink);
-    box-shadow:0 6px 16px rgba(231,90,138,.16);
+    border-color:#e9a3c1;
+    box-shadow:0 8px 20px rgba(214,91,138,.16);
+    transform:translateY(-1px);
   }
-  button:disabled{opacity:.45;cursor:default;box-shadow:none}
+  button:disabled{opacity:.45;cursor:default;box-shadow:none;transform:none}
 
   .src{
     margin-top:14px;text-align:center;font-family:var(--mono);
-    font-size:10.5px;line-height:1.6;color:#c4a7b5;
+    font-size:10.5px;line-height:1.6;color:#c9b0bd;
   }
 
   @media (prefers-reduced-motion: reduce){
-    .dot{animation:none}
+    body::after,.dot{animation:none}
   }
 </style>
 </head>
 <body>
 <div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Citybus · B3A</div>
+    <div class="date-en" id="dateEn">—</div>
+    <div class="date-cn" id="dateCn"></div>
+    <div class="rule"></div>
+  </header>
+
   <div class="grid" id="app"></div>
 
   <div class="foot">
@@ -251,8 +317,26 @@
   ];
 
   var $ = function (id) { return document.getElementById(id); };
-  var busy = false, lastUpdate = null, nextFetchAt = 0;
+  var busy = false, lastUpdate = null, nextFetchAt = 0, lastDay = "";
 
+  /* ---------- 日期 ---------- */
+  var DAY_EN = ["SUNDAY","MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY"];
+  var MON_EN = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY",
+                "AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
+  var DAY_CN = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+
+  function paintDate() {
+    var d = new Date();
+    var key = d.toDateString();
+    if (key === lastDay) return;
+    lastDay = key;
+    $("dateEn").textContent =
+      DAY_EN[d.getDay()] + " · " + d.getDate() + " " + MON_EN[d.getMonth()] + " " + d.getFullYear();
+    $("dateCn").textContent =
+      DAY_CN[d.getDay()] + " · " + (d.getMonth() + 1) + "月" + d.getDate() + "日";
+  }
+
+  /* ---------- 构建卡片 ---------- */
   var app = $("app");
   LEGS.forEach(function (leg) {
     var sec = document.createElement("section");
@@ -387,6 +471,7 @@
   }
 
   function tick() {
+    paintDate();
     if (!lastUpdate) return;
     LEGS.forEach(renderLeg);
 
@@ -406,6 +491,7 @@
     if (!document.hidden) fetchAll();
   });
 
+  paintDate();
   fetchAll();
   setInterval(tick, 1000);
   setInterval(fetchAll, REFRESH_MS);
